@@ -60,7 +60,7 @@ class TestNetworkConfigPlugin(unittest.TestCase):
         # Actual tests.
         if not network_details:
             ret = network_execute()
-            self.assertEqual((plugin_base.PLUGIN_EXECUTION_DONE, False), ret)
+            self.assertEqual((plugin_base.PLUGIN_EXECUTE_ON_NEXT_BOOT, False), ret)
             return
         if invalid_details or not network_adapters:
             with self.assertRaises(exception.CloudbaseInitException):
@@ -102,7 +102,7 @@ class TestNetworkConfigPlugin(unittest.TestCase):
         mock_osutils.set_static_network_config.assert_has_calls(
             calls, any_order=True)
         reboot = len(missed_adapters) != self._count
-        self.assertEqual((plugin_base.PLUGIN_EXECUTION_DONE, reboot), ret)
+        self.assertEqual((plugin_base.PLUGIN_EXECUTE_ON_NEXT_BOOT, reboot), ret)
 
     def _setup_network_details_v1(self, same_names=True, wrong_names=False,
                                   no_macs=False):
