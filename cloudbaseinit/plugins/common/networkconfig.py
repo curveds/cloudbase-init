@@ -172,7 +172,7 @@ class NetworkConfigPlugin(plugin_base.BasePlugin):
         if not configured:
             LOG.error("No adapters were configured")
 
-        return plugin_base.PLUGIN_EXECUTION_DONE, reboot_required
+        return plugin_base.PLUGIN_EXECUTE_ON_NEXT_BOOT, reboot_required
 
     @staticmethod
     def _process_link_common(osutils, link):
@@ -299,7 +299,7 @@ class NetworkConfigPlugin(plugin_base.BasePlugin):
         reboot_required = NetworkConfigPlugin._process_networks(
             osutils, network_details)
 
-        return plugin_base.PLUGIN_EXECUTION_DONE, reboot_required
+        return plugin_base.PLUGIN_EXECUTE_ON_NEXT_BOOT, reboot_required
 
     def execute(self, service, shared_data):
         network_details = service.get_network_details_v2()
@@ -310,4 +310,4 @@ class NetworkConfigPlugin(plugin_base.BasePlugin):
         if network_details:
             return self._process_network_details(network_details)
 
-        return plugin_base.PLUGIN_EXECUTION_DONE, False
+        return plugin_base.PLUGIN_EXECUTE_ON_NEXT_BOOT, False
